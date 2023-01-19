@@ -33,7 +33,6 @@ public class biblioteca {
 
        if(aux == 1){
            
-       
         System.out.println("Digite a matricula");
         BigInteger matricula = sc.nextBigInteger();
         sc.nextLine();
@@ -67,7 +66,7 @@ public class biblioteca {
        livro.setIdCategoria(cat);
        livro.setStatus("Disponivel");
        livroDAO.save(livro);  // salva as informacoes no banco
-       livro.exibirDados();
+       livroDAO.exibirDados2();
   
     }else if(aux == 3 ){
 
@@ -115,10 +114,7 @@ public class biblioteca {
       categoria.setCategoria(category);
       categoriaDAO.save(categoria); 
       categoria.exibirDados();
-    
-
-
-    
+   
   }else if(aux == 6){
 
     System.out.println("Digite o isbn do livro que deseja deletar");

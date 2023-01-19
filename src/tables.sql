@@ -38,9 +38,6 @@ create table if not exists tb_devolucoes (
     foreign key(dev_use_matricula) references tb_users(use_matricula));
 
 
-
-    
-
 drop trigger if exists `bibliotecaeest`.`tb_emprestimos_BEFORE_INSERT`;
 delimiter //
 CREATE DEFINER = CURRENT_USER TRIGGER  `bibliotecaeest`.`tb_emprestimos_BEFORE_INSERT` BEFORE INSERT ON `tb_emprestimos` FOR EACH ROW

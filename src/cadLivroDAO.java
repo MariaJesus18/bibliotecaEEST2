@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.sql.*; // importa todas as classes necessaria do sql
 
 public class cadLivroDAO {
@@ -122,6 +123,32 @@ public class cadLivroDAO {
             pstm.setObject(1, delUser.getDelUser());
             pstm.execute();
 
+        } catch (Exception error) {
+            error.printStackTrace();
+        } finally {
+            try {
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (dbconn != null) {
+                    dbconn.close();
+                }
+            } catch (Exception error) {
+                error.printStackTrace();
+            }
+        }
+    }
+
+    public void exibirDados2() {
+        String sql ="select liv_isbn,liv_autor,liv_titulo,liv_status,cat_categoria as categoria from tb_livros join  tb_categorias on liv_cat_id = cat_id where liv_isbn = ?";
+
+        try {
+
+            
+            dbconn = conexaoMySQL.createConnectionToMySQL(); // reestabelece a conexao com o banco
+            // vai inserir os dados no bd na ordem q esta aqui
+            pstm = (PreparedStatement) dbconn.prepareStatement(sql);
+          
         } catch (Exception error) {
             error.printStackTrace();
         } finally {
