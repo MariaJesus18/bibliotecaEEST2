@@ -12,6 +12,7 @@ public class biblioteca {
       cadUser usuario = new cadUser();
       cadCategorias categoria = new cadCategorias();
       delLivro delLivro = new delLivro();
+      delUser delUser = new delUser();
         
       // instanciacao dos objetos do tipo DAO
       cadLivroDAO livroDAO = new cadLivroDAO();
@@ -27,6 +28,7 @@ public class biblioteca {
        System.out.println("4- Cadastrar Devolucao");
        System.out.println("5- Cadastrar categoria");
        System.out.println("6- deletar livro");
+       System.out.println("7- deletar Usuario");
        int aux = sc.nextInt();
 
        if(aux == 1){
@@ -126,6 +128,15 @@ public class biblioteca {
     delLivro.setDelLivro(idLivro);
     livroDAO.deleteLiv(delLivro);
   
-    }  
+    } else if(aux == 7){
+
+      System.out.println("Digite a matricula do aluno que deseja deletar");
+      BigInteger idUser = sc.nextBigInteger(); 
+     
+  
+      delUser.setDelUser(idUser);
+      livroDAO.deleteUser(delUser);
+    
+      }  
   } 
 }

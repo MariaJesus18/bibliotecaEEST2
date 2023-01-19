@@ -11,7 +11,7 @@ create table if not exists tb_livros (
     liv_isbn bigInt(13) primary key,
     liv_titulo varchar(50),
     liv_autor varchar(50),
-    liv_status varchar(15),
+    liv_status varchar(15) default 'Disponível',
     liv_cat_id int,
     foreign key(liv_cat_id) references tb_categorias(cat_id));
 
@@ -63,12 +63,7 @@ end //
 
 delimiter ;
 
-CREATE DEFINER = CURRENT_USER TRIGGER `bibliotecaeest`.`tb_livros_BEFORE_DELETE` BEFORE DELETE ON `tb_livros` FOR EACH ROW
-BEGIN
-	if not exists((select * from tb_livros where liv_isbn = old.liv_isbn)) then
-    signal sqlstate '45000' set message_text = 'O livro não existe';
-  end if;
-END
+
 
 
 

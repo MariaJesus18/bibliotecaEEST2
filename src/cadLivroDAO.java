@@ -112,5 +112,31 @@ public class cadLivroDAO {
         }
     }
 
+    public void deleteUser(delUser delUser) {
+        String sql =" delete from tb_users where use_matricula=?;";
+
+        try {
+            dbconn = conexaoMySQL.createConnectionToMySQL(); // reestabelece a conexao com o banco
+            // vai inserir os dados no bd na ordem q esta aqui
+            pstm = (PreparedStatement) dbconn.prepareStatement(sql);
+            pstm.setObject(1, delUser.getDelUser());
+            pstm.execute();
+
+        } catch (Exception error) {
+            error.printStackTrace();
+        } finally {
+            try {
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (dbconn != null) {
+                    dbconn.close();
+                }
+            } catch (Exception error) {
+                error.printStackTrace();
+            }
+        }
+    }
+
 
 }
