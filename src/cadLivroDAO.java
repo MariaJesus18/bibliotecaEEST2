@@ -5,7 +5,7 @@ public class cadLivroDAO {
     PreparedStatement pstm = null; // variavel que serve para montar a query sem a necessidade de concatenar
     public void save(cadLivro livro) {
         // insercao dos dados no bd
-        String sql = " insert into tb_livros (liv_isbn,liv_titulo,liv_autor,liv_Status,liv_cat_id) values (?,?,?,?,?)";
+        String sql = "insert into tb_livros (liv_isbn,liv_titulo,liv_autor,liv_Status,liv_cat_id) values (?,?,?,?,?)";
 
         // bloco de codigo que vai tratar as excecoes do codigo
         try {
@@ -68,6 +68,32 @@ public class cadLivroDAO {
             // vai inserir os dados no bd na ordem q esta aqui
             pstm = (PreparedStatement) dbconn.prepareStatement(sql);
             pstm.setObject(1, devolucao.getIsbn());
+            pstm.execute();
+
+        } catch (Exception error) {
+            error.printStackTrace();
+        } finally {
+            try {
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (dbconn != null) {
+                    dbconn.close();
+                }
+            } catch (Exception error) {
+                error.printStackTrace();
+            }
+        }
+    }
+
+    public void deleteLiv(delLivro delLivro) {
+        String sql =" delete from tb_livros where liv_isbn=?;";
+
+        try {
+            dbconn = conexaoMySQL.createConnectionToMySQL(); // reestabelece a conexao com o banco
+            // vai inserir os dados no bd na ordem q esta aqui
+            pstm = (PreparedStatement) dbconn.prepareStatement(sql);
+            pstm.setObject(1, delLivro.getDelLivro());
             pstm.execute();
 
         } catch (Exception error) {

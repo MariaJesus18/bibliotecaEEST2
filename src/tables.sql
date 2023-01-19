@@ -61,3 +61,13 @@ end if;
 end //
 
 delimiter ;
+
+delimiter //
+
+CREATE DEFINER = CURRENT_USER TRIGGER `bibliotecaeest`.`tb_livros_BEFORE_DELETE` BEFORE DELETE ON `tb_livros` FOR EACH ROW
+BEGIN
+	if ((select liv_status from tb_livros, tb_devolucoes where dev_liv_isbn = liv_isbn and dev_liv_isbn = new.dev_liv_isbn) = 'Disponivel') then
+  signal sqlstate '45000' set message_text = 'O livro não tá emprestado';
+END //
+
+delimiter ;
