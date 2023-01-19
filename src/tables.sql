@@ -63,5 +63,12 @@ end //
 
 delimiter ;
 
+CREATE DEFINER = CURRENT_USER TRIGGER `bibliotecaeest`.`tb_livros_BEFORE_DELETE` BEFORE DELETE ON `tb_livros` FOR EACH ROW
+BEGIN
+	if not exists((select * from tb_livros where liv_isbn = old.liv_isbn)) then
+    signal sqlstate '45000' set message_text = 'O livro não existe';
+  end if;
+END
+
 
 
