@@ -17,7 +17,8 @@ create table if not exists tb_livros (
 
 create table if not exists tb_users (
     use_matricula bigInt(14) primary key,
-    use_nome varchar(50));
+    use_nome varchar(50),
+    use_status varchar(50) default 'Ativo');
 
 create table if not exists tb_emprestimos (
     emp_id int auto_increment primary key ,
@@ -42,23 +43,36 @@ drop trigger if exists `bibliotecaeest`.`tb_emprestimos_BEFORE_INSERT`;
 delimiter //
 CREATE DEFINER = CURRENT_USER TRIGGER  `bibliotecaeest`.`tb_emprestimos_BEFORE_INSERT` BEFORE INSERT ON `tb_emprestimos` FOR EACH ROW
 begin 
-if ((select liv_status from tb_livros, tb_emprestimos where emp_liv_isbn = liv_isbn and emp_liv_isbn = new.emp_liv_isbn) = 'Indisponivel') then
-  signal sqlstate '45000' set message_text = 'O livro já tá emprestado';
-end if;
+
+  if exists(select liv_status from tb_livros, tb_emprestimos where emp_liv_isbn = liv_isbn and emp_liv_isbn = new.emp_liv_isbn and liv_status  in ('Indisponivel', 'Descartado')) then
+    signal sqlstate '45000' set message_text = 'O livro ta indisponivel para emprestimos';
+    end if;
+  if exists(select use_status from tb_users join tb_emprestimos on emp_use_matricula = use_matricula where  emp_use_matricula = new.emp_use_matricula) = 'Inativo' then
+    signal sqlstate '45000' set message_text = 'Este usuario esta inativo';
+  end if;
+
 end //
 
+  
 delimiter ;
 
 drop trigger if exists`bibliotecaeest`.`tb_devolucoes_BEFORE_INSERT`;
 delimiter //
 CREATE DEFINER = CURRENT_USER TRIGGER `bibliotecaeest`.`tb_devolucoes_BEFORE_INSERT` BEFORE INSERT ON `tb_devolucoes` FOR EACH ROW
 begin 
-if ((select liv_status from tb_livros, tb_devolucoes where dev_liv_isbn = liv_isbn and dev_liv_isbn = new.dev_liv_isbn) = 'Disponivel') then
-  signal sqlstate '45000' set message_text = 'O livro não tá emprestado';
-end if;
+
+  if ((select liv_status from tb_livros, tb_devolucoes where dev_liv_isbn = liv_isbn and dev_liv_isbn = new.dev_liv_isbn) = 'Disponivel') then
+    signal sqlstate '45000' set message_text = 'O livro não tá emprestado';
+  end if;
+
 end //
 
 delimiter ;
+insert into tb_users(use_matricula,use_nome) values (20201101110035, "Maria de jesus");
+insert into tb_categorias(cat_categoria) values ( "Romance");
+insert into tb_livros(liv_isbn,liv_titulo,liv_autor,liv_status,liv_cat_id) values (123,"eh a vida", "Kauan","Disponivel",1);
+-- insert into tb_emprestimos(emp_liv_isbn,emp_use_matricula) values(123,20201101110035);
+
 
 
 

@@ -1,18 +1,30 @@
 import java.math.BigInteger;
 import java.util.Scanner;
 
+import cadastros.cadCategorias;
+import cadastros.cadDev;
+import cadastros.cadEmp;
+import cadastros.cadLivro;
+import cadastros.cadUser;
+import classesDAO.cadCategoriaDAO;
+import classesDAO.cadDevDAO;
+import classesDAO.cadEmpDAO;
+import classesDAO.cadLivroDAO;
+import classesDAO.cadUserDAO;
+import descartados.livDescartado;
+import descartados.userDescartados;
+
 public class biblioteca {
   public static void main(String[] args) throws Exception{
       Scanner sc = new Scanner(System.in);
-      conexaoMySQL db = new conexaoMySQL(); // objeto que faz a conexao com o bd
 
       cadDev devolucao = new cadDev();
       cadEmp emprestimo = new cadEmp();
       cadLivro livro = new cadLivro();
       cadUser usuario = new cadUser();
       cadCategorias categoria = new cadCategorias();
-      delLivro delLivro = new delLivro();
-      delUser delUser = new delUser();
+       livDescartado livroDescartado = new livDescartado();
+       userDescartados userDescartado = new userDescartados();
         
       // instanciacao dos objetos do tipo DAO
       cadLivroDAO livroDAO = new cadLivroDAO();
@@ -80,7 +92,6 @@ public class biblioteca {
 
       emprestimo.setMatriculaAl(matriculaAl);
       emprestimo.setIsbn(isbn);
-      String disp = "Indisponivel";
 
       emprestimoDAO.save(emprestimo);  // salva as informacoes no banco 
       livroDAO.livIndisponivel(livro, emprestimo);
@@ -117,21 +128,21 @@ public class biblioteca {
    
   }else if(aux == 6){
 
-    System.out.println("Digite o isbn do livro que deseja deletar");
-    int idLivro = sc.nextInt(); 
+    System.out.println("Digite o isbn do livro que deseja mudar status");
+    int livDeletado = sc.nextInt(); 
    
 
-    delLivro.setDelLivro(idLivro);
-    livroDAO.deleteLiv(delLivro);
+    livroDescartado.setLivDescartado(livDeletado);
+    livroDAO.livDescartado(livro,livroDescartado);
   
     } else if(aux == 7){
 
       System.out.println("Digite a matricula do aluno que deseja deletar");
-      BigInteger idUser = sc.nextBigInteger(); 
+      BigInteger userDeletado = sc.nextBigInteger(); 
      
   
-      delUser.setDelUser(idUser);
-      livroDAO.deleteUser(delUser);
+      userDescartado.setUserDescartado(userDeletado);
+      userDAO.userDeletado(userDescartado);
     
       }  
   } 
