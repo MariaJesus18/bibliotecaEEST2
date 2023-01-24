@@ -14,6 +14,7 @@ import classesDAO.cadUserDAO;
 import descartados.livDescartado;
 import descartados.userDescartados;
 
+
 public class biblioteca {
   public static void main(String[] args) throws Exception{
       Scanner sc = new Scanner(System.in);
@@ -82,7 +83,8 @@ public class biblioteca {
   
     }else if(aux == 3 ){
 
-      
+       
+
       System.out.println("Digite a matricula do Aluno");
       BigInteger matriculaAl = sc.nextBigInteger();
       sc.nextLine(); 
@@ -92,11 +94,12 @@ public class biblioteca {
 
       emprestimo.setMatriculaAl(matriculaAl);
       emprestimo.setIsbn(isbn);
-
-      emprestimoDAO.save(emprestimo);  // salva as informacoes no banco 
-      livroDAO.livIndisponivel(livro, emprestimo);
-      emprestimo.exibirDados(); 
-
+      boolean salvaEmprestimo = emprestimoDAO.save(emprestimo);
+      if(salvaEmprestimo){
+        livroDAO.livIndisponivel(livro, emprestimo);
+        emprestimo.exibirDados();
+      }
+     
     }else if(aux == 4 ){
       
       System.out.println("Digite a matricula do Aluno");
@@ -147,3 +150,7 @@ public class biblioteca {
       }  
   } 
 }
+
+// private String getOriginalTaskId(final String taskId) {
+//   String sql = String.format("SELECT original_task_id FROM %s WHERE task_id = '%s' and state='%s' LIMIT 1", TABLE_JOB_STATUS_TRACE_LOG, taskId, State.TASK_STAGING);
+//   String result = "";

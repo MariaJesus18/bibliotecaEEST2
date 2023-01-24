@@ -7,7 +7,7 @@ import database.conexaoMySQL;
 
 public class cadEmpDAO {
 
-    public void save(cadEmp emprestimo) {
+    public boolean save(cadEmp emprestimo) {
 
         // insercao dos dados no bd
         String sql = " insert into tb_emprestimos (emp_use_matricula,emp_liv_isbn) values (?,?)";
@@ -25,7 +25,9 @@ public class cadEmpDAO {
             pstm.setObject(2, emprestimo.getIsbn());
             pstm.execute();
         } catch (Exception error) {
-            error.printStackTrace();
+            // error.printStackTrace();
+            System.out.println(error.getMessage());
+            return false;
         } finally {
             try {
                 if (pstm != null) {
@@ -38,5 +40,6 @@ public class cadEmpDAO {
                 error.printStackTrace();
             }
         }
+        return true;
     }
 }

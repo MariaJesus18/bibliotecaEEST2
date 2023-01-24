@@ -44,16 +44,16 @@ delimiter //
 CREATE DEFINER = CURRENT_USER TRIGGER  `bibliotecaeest`.`tb_emprestimos_BEFORE_INSERT` BEFORE INSERT ON `tb_emprestimos` FOR EACH ROW
 begin 
 
-  if exists(select liv_status from tb_livros, tb_emprestimos where emp_liv_isbn = liv_isbn and emp_liv_isbn = new.emp_liv_isbn and liv_status  in ('Indisponivel', 'Descartado')) then
+  if exists(select liv_status from tb_livros, tb_emprestimos where emp_liv_isbn = liv_isbn and emp_liv_isbn = new.emp_liv_isbn and liv_status in ('Indisponivel', 'Descartado')) then
     signal sqlstate '45000' set message_text = 'O livro ta indisponivel para emprestimos';
     end if;
-  if exists(select use_status from tb_users join tb_emprestimos on emp_use_matricula = use_matricula where  emp_use_matricula = new.emp_use_matricula) = 'Inativo' then
-    signal sqlstate '45000' set message_text = 'Este usuario esta inativo';
-  end if;
+
+  if exists(select use_matricula from tb_users where use_matricula = NEW.emp_use_matricula and use_status = 'Inativo') then
+    signal sqlstate '45000' set message_text = 'O user nn existe';
+    end if;
 
 end //
 
-  
 delimiter ;
 
 drop trigger if exists`bibliotecaeest`.`tb_devolucoes_BEFORE_INSERT`;
@@ -68,6 +68,7 @@ begin
 end //
 
 delimiter ;
+
 insert into tb_users(use_matricula,use_nome) values (20201101110035, "Maria de jesus");
 insert into tb_categorias(cat_categoria) values ( "Romance");
 insert into tb_livros(liv_isbn,liv_titulo,liv_autor,liv_status,liv_cat_id) values (123,"eh a vida", "Kauan","Disponivel",1);
