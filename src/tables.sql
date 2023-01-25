@@ -52,6 +52,10 @@ begin
     signal sqlstate '45000' set message_text = 'O user nn existe';
     end if;
 
+    if exists(select liv_isbn from tb_livros where liv_isbn = NEW.emp_liv_isbn and liv_status = 'Descartado') then
+    signal sqlstate '45000' set message_text = 'O livro nn existe';
+    end if;
+
 end //
 
 delimiter ;
@@ -68,6 +72,8 @@ begin
 end //
 
 delimiter ;
+
+
 
 insert into tb_users(use_matricula,use_nome) values (20201101110035, "Maria de jesus");
 insert into tb_categorias(cat_categoria) values ( "Romance");

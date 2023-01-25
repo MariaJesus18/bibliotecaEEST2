@@ -25,7 +25,7 @@ public class cadDevDAO {
             pstm.setObject(1, devolucao.getMatriculaAl());
             pstm.setObject(2, devolucao.getIsbn());
             pstm.setInt(3, devolucao.getIdEmp());
-
+            //tinker -> php -> DB::user(1) | buscar um método de consultar os dados do banco em Java
             pstm.execute();
         } catch (Exception error) {
             error.printStackTrace();

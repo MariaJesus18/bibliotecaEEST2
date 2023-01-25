@@ -10,7 +10,7 @@ public class cadCategoriaDAO {
     public void save(cadCategorias categoria) { // funcao que salva os dados no banco
 
         // insercao dos dados no bd
-        String sql = " insert into tb_categorias (cat_categoria) values (?)";
+        String sql = "insert into tb_categorias (cat_categoria) values (?)";
 
         Connection dbconn = null; // variavel de conexao
         PreparedStatement pstm = null; // variavel que serve para montar a query sem a necessidade de concatenar
