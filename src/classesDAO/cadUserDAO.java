@@ -43,21 +43,8 @@ Connection dbconn = null; // variavel de conexao
     public void userDeletado(userDescartados userDel) {
         String sql2 = "select use_matricula from tb_users where use_matricula =?";
         String sql ="update tb_users set use_status='Inativo' where use_matricula=?";
-        
-        try {
-            dbconn = conexaoMySQL.createConnectionToMySQL(); // reestabelece a conexao com o banco
-            // vai inserir os dados no bd na ordem q esta aqui
-            pstm = (PreparedStatement) dbconn.prepareStatement(sql2);
-            pstm.setObject(1, userDel.getUserDescartado());
-            pstm.execute();
-            Boolean a1 = pstm.execute();
 
-            if (a1 = false) {
-
-                System.out.println("TESTE");
-                
-            } else {
-                try {
+            try {
                     dbconn = conexaoMySQL.createConnectionToMySQL(); // reestabelece a conexao com o banco
                     // vai inserir os dados no bd na ordem q esta aqui
                     pstm = (PreparedStatement) dbconn.prepareStatement(sql);
@@ -76,25 +63,6 @@ Connection dbconn = null; // variavel de conexao
                         } catch (Exception error) {
                             error.printStackTrace();
                         }
-                    }
-                    
                 }
-
-            
-
-        } catch (Exception error) {
-            error.printStackTrace();
-        } finally {
-            try {
-                if (pstm != null) {
-                    pstm.close();
-                }
-                if (dbconn != null) {
-                    dbconn.close();
-                }
-            } catch (Exception error) {
-                error.printStackTrace();
-            }
         }
     }
-}
