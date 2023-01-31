@@ -15,6 +15,8 @@ import classesDAO.cadLivroDAO;
 import classesDAO.cadUserDAO;
 import descartados.livDescartado;
 import descartados.userDescartados;
+import updates.upUser;
+import updates.upLivro;
 
 
 public class biblioteca {
@@ -28,6 +30,8 @@ public class biblioteca {
       cadCategorias categoria = new cadCategorias();
        livDescartado livroDescartado = new livDescartado();
        userDescartados userDescartado = new userDescartados();
+       upUser userup = new upUser();
+       upLivro livroup = new upLivro();
         
       // instanciacao dos objetos do tipo DAO
       cadLivroDAO livroDAO = new cadLivroDAO();
@@ -44,7 +48,9 @@ public class biblioteca {
        System.out.println("5- Cadastrar categoria");
        System.out.println("6- deletar livro");
        System.out.println("7- deletar Usuario");
-       System.out.println("8- Sair do menu");
+       System.out.println("8- Editar usuario");
+       System.out.println("9-Editar Livro");
+       System.out.println("10- Sair do menu");
        int aux = sc.nextInt();
 
        if(aux == 1){
@@ -150,7 +156,47 @@ public class biblioteca {
       userDescartado.setUserDescartado(userDeletado);
       userDAO.userDeletado(userDescartado);
       
-  } else if (aux == 8){
+    }else if (aux == 8) {
+
+      System.out.println("Digite o isbn do livrop que deseja deletar");
+      BigInteger matriculaold = sc.nextBigInteger();
+      sc.nextLine();
+
+      System.out.println("Digite a nova matricula");
+      BigInteger matriculaup = sc.nextBigInteger();
+      sc.nextLine();
+
+      System.out.println("Digite o novo nome do Usuario");
+      String nomeup = sc.nextLine();
+
+      userup.setOldMat(matriculaold);
+      userup.setMatricula(matriculaup);
+      userup.setNome(nomeup);
+      userDAO.upUser(userup); // salva as informacoes no banco
+  }
+  else if (aux == 9) {
+
+    System.out.println("Digite o isbn do livro q deseja editar");
+    BigInteger isbnold = sc.nextBigInteger();
+    sc.nextLine();
+
+    System.out.println("Digite o novo isbn");
+    BigInteger isbnnew = sc.nextBigInteger();
+    sc.nextLine();
+
+    System.out.println("Digite o novo titulo do livro");
+    String tituloup = sc.nextLine();
+
+    System.out.println("Digite a nova categoria do livro");
+    int categoriaup = sc.nextInt();
+
+    livroup.setOldisbn(isbnold);
+    livroup.setNewisbn(isbnnew);
+    livroup.setTitulo(tituloup);
+    livroup.setIdCategoria(categoriaup);
+    livroDAO.upLivro(livroup); // salva as informacoes no banco
+}
+   else if (aux == 10){
     System.exit(0);
   }
 }

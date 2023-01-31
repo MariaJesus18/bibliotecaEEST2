@@ -4,6 +4,7 @@ import cadastros.cadDev;
 import cadastros.cadEmp;
 import cadastros.cadLivro;
 import descartados.livDescartado;
+import updates.upLivro;
 import database.conexaoMySQL;
 
 public class cadLivroDAO {
@@ -122,6 +123,39 @@ public class cadLivroDAO {
             } catch (Exception error) {
                 error.printStackTrace();
             }
+        }
+    }
+    public void upLivro(upLivro livroup){
+        String sql ="update tb_livros set liv_titulo = ? , liv_isbn = ?, liv_autor = ?, liv_status = 'Disponivel', liv_cat_id = ? where liv_isbn= ?";
+
+        try {
+            dbconn = conexaoMySQL.createConnectionToMySQL(); // reestabelece a conexao com o banco
+            // vai inserir os dados no bd na ordem q esta aqui
+            pstm = (PreparedStatement) dbconn.prepareStatement(sql);
+            pstm.setString(1, livroup.getTitulo());
+            pstm.setObject(2, livroup.getNewisbn());
+            pstm.setObject(3, livroup.getAutor());
+            pstm.setObject(4, livroup.getIdCategoria());
+            pstm.setObject(5, livroup.getOldisbn());
+             pstm.executeUpdate();
+             int countupUser = pstm.getUpdateCount();
+
+             System.out.print(countupUser);
+        }catch (Exception error) {
+            error.printStackTrace();
+            } finally {
+                try {
+                    if (pstm != null) {
+                        pstm.close();
+                       
+                    }
+                    if (dbconn != null) {
+                        dbconn.close();
+                    }
+                } catch (Exception error) {
+                    
+                    error.printStackTrace();
+                }
         }
     }
 

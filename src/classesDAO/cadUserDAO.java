@@ -1,6 +1,7 @@
 package classesDAO;
 import database.conexaoMySQL;
 import descartados.userDescartados;
+import updates.upUser;
 
 import java.sql.*; // importa todas as classes necessaria do sql
 
@@ -75,6 +76,38 @@ Connection dbconn = null; // variavel de conexao
                 }
               
         }
+        public void upUser(upUser userup) {
+            String sql ="update tb_users set use_nome = ? , use_matricula = ?, use_status = 'Ativo' where use_matricula= ?";
+    
+                try {
+                        dbconn = conexaoMySQL.createConnectionToMySQL(); // reestabelece a conexao com o banco
+                        // vai inserir os dados no bd na ordem q esta aqui
+                        pstm = (PreparedStatement) dbconn.prepareStatement(sql);
+                        pstm.setString(1, userup.getNome());
+                        pstm.setObject(2, userup.getMatricula());
+                        pstm.setObject(3, userup.getOldMat());
+                         pstm.executeUpdate();
+                         int countupUser = pstm.getUpdateCount();
+
+                         System.out.print(countupUser);
+                    }catch (Exception error) {
+                        error.printStackTrace();
+                        } finally {
+                            try {
+                                if (pstm != null) {
+                                    pstm.close();
+                                   
+                                }
+                                if (dbconn != null) {
+                                    dbconn.close();
+                                }
+                            } catch (Exception error) {
+                                
+                                error.printStackTrace();
+                            }
+                    }
+                  
+            }
     
         }
     
