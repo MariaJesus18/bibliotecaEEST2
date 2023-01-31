@@ -6,7 +6,7 @@ public class conexaoMySQL {
     // informacoes do local onde o banco esta
     public static String URL = "jdbc:mysql://localhost:3306/bibliotecaeest";
     public static String USER = "root";
-    public static String PASSWORD = "mjsm2004";
+    public static String PASSWORD = "MJSM2004";
 
     private Connection dbconn = null;
     // private ResultSet resultsql = null;

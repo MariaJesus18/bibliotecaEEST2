@@ -57,8 +57,6 @@ Connection dbconn = null; // variavel de conexao
                     } else {
                         System.out.println("O usuario deletado com sucesso!!");
                     }
-              
-           
                 }catch (Exception error) {
                     error.printStackTrace();
                     } finally {

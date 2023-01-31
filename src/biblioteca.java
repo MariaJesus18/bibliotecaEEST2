@@ -1,6 +1,8 @@
 import java.math.BigInteger;
 import java.util.Scanner;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
+
 import cadastros.cadCategorias;
 import cadastros.cadDev;
 import cadastros.cadEmp;
@@ -42,6 +44,7 @@ public class biblioteca {
        System.out.println("5- Cadastrar categoria");
        System.out.println("6- deletar livro");
        System.out.println("7- deletar Usuario");
+       System.out.println("8- Sair do menu");
        int aux = sc.nextInt();
 
        if(aux == 1){
@@ -146,8 +149,11 @@ public class biblioteca {
   
       userDescartado.setUserDescartado(userDeletado);
       userDAO.userDeletado(userDescartado);
-      }  
-  } 
+      
+  } else if (aux == 8){
+    System.exit(0);
+  }
+}
 }
 
 // private String getOriginalTaskId(final String taskId) {

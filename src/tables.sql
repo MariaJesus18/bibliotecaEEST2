@@ -73,33 +73,6 @@ end //
 
 delimiter ;
 
-delimiter //
-create function teste(valor bigInt) returns varchar(50)
-begin 
-
-set @valida = (select count(*) from tb_users where valor = use_matricula);
-      if(@valida = 0) 
-      then return 'tt';
-      else return 'aa';
-      end if;
-end //
-delimiter ;
-delimiter //
-  CREATE DEFINER = CURRENT_USER TRIGGER `bibliotecaeest`.`tb_users_BEFORE_UPDATE` BEFORE UPDATE ON `tb_users` FOR EACH ROW
-BEGIN
-
-  if ((teste(new.use_matricula)) = 'tt') then
-    signal sqlstate '45000' set message_text = 'user não existe';
-  end if;
-
-END //
-delimiter ;
-
-
-
-
-
-
 insert into tb_users(use_matricula,use_nome) values (20201101110035, "Maria de jesus");
 insert into tb_categorias(cat_categoria) values ( "Romance");
 insert into tb_livros(liv_isbn,liv_titulo,liv_autor,liv_status,liv_cat_id) values (123,"eh a vida", "Kauan","Disponivel",1);
