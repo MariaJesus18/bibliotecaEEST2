@@ -146,7 +146,6 @@ public class biblioteca {
   
       userDescartado.setUserDescartado(userDeletado);
       userDAO.userDeletado(userDescartado);
-    
       }  
   } 
 }

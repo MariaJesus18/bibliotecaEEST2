@@ -73,6 +73,31 @@ end //
 
 delimiter ;
 
+delimiter //
+create function teste(valor bigInt) returns varchar(50)
+begin 
+
+set @valida = (select count(*) from tb_users where valor = use_matricula);
+      if(@valida = 0) 
+      then return 'tt';
+      else return 'aa';
+      end if;
+end //
+delimiter ;
+delimiter //
+  CREATE DEFINER = CURRENT_USER TRIGGER `bibliotecaeest`.`tb_users_BEFORE_UPDATE` BEFORE UPDATE ON `tb_users` FOR EACH ROW
+BEGIN
+
+  if ((teste(new.use_matricula)) = 'tt') then
+    signal sqlstate '45000' set message_text = 'user não existe';
+  end if;
+
+END //
+delimiter ;
+
+
+
+
 
 
 insert into tb_users(use_matricula,use_nome) values (20201101110035, "Maria de jesus");
@@ -83,5 +108,20 @@ insert into tb_livros(liv_isbn,liv_titulo,liv_autor,liv_status,liv_cat_id) value
 
 
 
+  
 
+-- create function fn_media(nota1 float, nota2 float, nota3 float, nota4 float) returns float 
+-- return ((nota1 + nota2 + nota3 + nota4)/4);
 
+-- delimiter //
+-- create trigger tr_adcNotas before insert on tb_notas for each row
+-- begin
+-- 	if not exists(select * from tb_matriculas where mat_id = new.not_mat_id and mat_situacao like 'Matriculado') then 
+-- 		signal sqlstate '45000' set message_text = 'Aluno inexistente';
+-- 	end if;
+    
+-- 	if (fn_media(new.not_nota1, new.not_nota2, new.not_nota3, new.not_nota4) >= 6 and (select concat(new.not_nota1, new.not_nota2, new.not_nota3, new.not_nota4))) then
+-- 		update tb_matriculas set mat_situacao = 'Aprovado' where mat_id = new.not_mat_id;
+-- 	elseif (fn_media(new.not_nota1, new.not_nota2, new.not_nota3, new.not_nota4) < 6 and exists(select concat(new.not_nota1, new.not_nota2, new.not_nota3, new.not_nota4))) then
+-- 		update tb_matriculas set mat_situacao = 'Reprovado' where mat_id = new.not_mat_id;
+-- 	end if;

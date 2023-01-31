@@ -101,6 +101,13 @@ public class cadLivroDAO {
             pstm = (PreparedStatement) dbconn.prepareStatement(sql);
             pstm.setObject(1, descartado.getLivDescartado());
             pstm.execute();
+            int countDelLiv = pstm.getUpdateCount();
+
+            if (countDelLiv == 0) {
+                System.out.println(" O livro não existe!!");
+            } else {
+                System.out.println("livro deletado com sucesso!!");
+            }
 
         } catch (Exception error) {
             error.printStackTrace();

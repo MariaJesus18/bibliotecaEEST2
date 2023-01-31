@@ -24,7 +24,8 @@ Connection dbconn = null; // variavel de conexao
             pstm = (PreparedStatement) dbconn.prepareStatement(sql);
             pstm.setObject(1, user.getMatricula());
             pstm.setString(2, user.getNome());
-            pstm.execute();
+            pstm.executeUpdate();
+            System.out.println(pstm);
         } catch (Exception error) {
             error.printStackTrace();
         } finally {
@@ -41,7 +42,6 @@ Connection dbconn = null; // variavel de conexao
         }
     }
     public void userDeletado(userDescartados userDel) {
-        String sql2 = "select use_matricula from tb_users where use_matricula =?";
         String sql ="update tb_users set use_status='Inativo' where use_matricula=?";
 
             try {
@@ -49,20 +49,34 @@ Connection dbconn = null; // variavel de conexao
                     // vai inserir os dados no bd na ordem q esta aqui
                     pstm = (PreparedStatement) dbconn.prepareStatement(sql);
                     pstm.setObject(1, userDel.getUserDescartado());
-                    pstm.execute();
+                    pstm.executeUpdate();
+                    int countDelUser = pstm.getUpdateCount();
+
+                    if (countDelUser == 0) {
+                        System.out.println("O usuario não existe!!");
+                    } else {
+                        System.out.println("O usuario deletado com sucesso!!");
+                    }
+              
+           
                 }catch (Exception error) {
-                        error.printStackTrace();
+                    error.printStackTrace();
                     } finally {
                         try {
                             if (pstm != null) {
                                 pstm.close();
+                               
                             }
                             if (dbconn != null) {
                                 dbconn.close();
                             }
                         } catch (Exception error) {
+                            
                             error.printStackTrace();
                         }
                 }
+              
         }
-    }
+    
+        }
+    
