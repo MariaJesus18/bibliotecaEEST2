@@ -1,8 +1,5 @@
 import java.math.BigInteger;
 import java.util.Scanner;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
-
 import cadastros.cadCategorias;
 import cadastros.cadDev;
 import cadastros.cadEmp;
@@ -65,7 +62,7 @@ public class biblioteca {
        usuario.setNome(nome);
        usuario.setMatricula(matricula);
        userDAO.save(usuario); // salva as informacoes no banco
-       usuario.exibirDados();
+       
   
     } else if(aux==2){
 
@@ -140,7 +137,7 @@ public class biblioteca {
    
   }else if(aux == 6){
 
-    System.out.println("Digite o isbn do livro que deseja mudar status");
+    System.out.println("Digite o isbn do livro que deseja deletar");
     int livDeletado = sc.nextInt(); 
    
 
@@ -158,19 +155,14 @@ public class biblioteca {
       
     }else if (aux == 8) {
 
-      System.out.println("Digite o isbn do livrop que deseja deletar");
+      System.out.println("Digite a matricula do aluno que deseja editar");
       BigInteger matriculaold = sc.nextBigInteger();
-      sc.nextLine();
-
-      System.out.println("Digite a nova matricula");
-      BigInteger matriculaup = sc.nextBigInteger();
       sc.nextLine();
 
       System.out.println("Digite o novo nome do Usuario");
       String nomeup = sc.nextLine();
 
       userup.setOldMat(matriculaold);
-      userup.setMatricula(matriculaup);
       userup.setNome(nomeup);
       userDAO.upUser(userup); // salva as informacoes no banco
   }
@@ -180,10 +172,6 @@ public class biblioteca {
     BigInteger isbnold = sc.nextBigInteger();
     sc.nextLine();
 
-    System.out.println("Digite o novo isbn");
-    BigInteger isbnnew = sc.nextBigInteger();
-    sc.nextLine();
-
     System.out.println("Digite o novo titulo do livro");
     String tituloup = sc.nextLine();
 
@@ -191,7 +179,6 @@ public class biblioteca {
     int categoriaup = sc.nextInt();
 
     livroup.setOldisbn(isbnold);
-    livroup.setNewisbn(isbnnew);
     livroup.setTitulo(tituloup);
     livroup.setIdCategoria(categoriaup);
     livroDAO.upLivro(livroup); // salva as informacoes no banco

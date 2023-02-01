@@ -4,7 +4,6 @@ import java.math.BigInteger;
 public class upLivro {
     private String titulo;
     private BigInteger oldisbn;
-    private BigInteger newisbn;
     private String autor;
     private int idCategoria;
 
@@ -19,12 +18,6 @@ public class upLivro {
     }
     public void setOldisbn(BigInteger oldisbn) {
         this.oldisbn = oldisbn;
-    }
-    public BigInteger getNewisbn() {
-        return newisbn;
-    }
-    public void setNewisbn(BigInteger newisbn) {
-        this.newisbn = newisbn;
     }
     public String getAutor() {
         return autor;

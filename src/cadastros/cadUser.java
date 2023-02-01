@@ -25,13 +25,7 @@ public class cadUser {
     public void setMatricula(BigInteger matricula) {
         this.matricula = matricula;
     }
-    public void exibirDados(){
-      
-        System.out.println("----------DADOS DO USUARIO-----------");
-        System.out.println("nome: " +getNome());
-        System.out.println("matriucla: " +getMatricula());
-        System.out.println("--------------------------------");
-    }
+
 
     
 
