@@ -15,8 +15,6 @@ public class cadCategoriaDAO {
         // insercao dos dados no bd
         String sql = "insert into tb_categorias (cat_categoria) values (?)";
 
-       
-
         // bloco de codigo que vai tratar as excecoes do codigo
         try {
 
@@ -41,25 +39,24 @@ public class cadCategoriaDAO {
             }
         }
     }
-    
+
     public void exibirCategorias() {
         String sql = "SELECT * FROM tb_categorias";
-        try {  
+        try {
             dbconn = conexaoMySQL.createConnectionToMySQL();
             pstm = (PreparedStatement) dbconn.prepareStatement(sql);
-          
+
             ResultSet rs = pstm.executeQuery();
-            
+
             while (rs.next()) {
                 cadCategorias categorias = new cadCategorias();
-                categorias.setCategoria(rs.getString("cat_categoria")); 
+                categorias.setCategoria(rs.getString("cat_categoria"));
 
-                
-                System.out.println("| \u001b[32;1mCategoria:\u001b[m " + categorias.getCategoria()  +" |");
+                System.out.println("| \u001b[32;1mCategoria:\u001b[m " + categorias.getCategoria() + " |");
             }
 
         } catch (Exception error) {
-            
+
             error.printStackTrace();
         }
     }

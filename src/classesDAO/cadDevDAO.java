@@ -5,7 +5,6 @@ import java.sql.*; // importa todas as classes necessaria do sql
 import cadastros.cadDev;
 import database.conexaoMySQL;
 
-
 public class cadDevDAO {
 
     public void save(cadDev devolucao) { // funcao que salva os dados no banco
@@ -25,7 +24,8 @@ public class cadDevDAO {
             pstm.setObject(1, devolucao.getMatriculaAl());
             pstm.setObject(2, devolucao.getIsbn());
             pstm.setInt(3, devolucao.getIdEmp());
-            //tinker -> php -> DB::user(1) | buscar um método de consultar os dados do banco em Java
+            // tinker -> php -> DB::user(1) | buscar um método de consultar os dados do
+            // banco em Java
             pstm.execute();
         } catch (Exception error) {
             error.printStackTrace();
