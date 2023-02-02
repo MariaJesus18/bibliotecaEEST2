@@ -2,6 +2,7 @@ package classesDAO;
 import database.conexaoMySQL;
 import descartados.userDescartados;
 import updates.upUser;
+import java.math.BigInteger;
 
 import java.sql.*; // importa todas as classes necessaria do sql
 
@@ -11,7 +12,8 @@ public class cadUserDAO {
 
 Connection dbconn = null; // variavel de conexao
         PreparedStatement pstm = null; // variavel que serve para montar a query sem a necessidade de concatenar
-    public void save(cadUser user) {
+       
+        public void save(cadUser user) {
         // insercao dos dados no bd
         String sql = "insert into tb_users (use_matricula,use_nome) values (?,?)";
 
@@ -106,6 +108,32 @@ Connection dbconn = null; // variavel de conexao
                             }
                     }
                   
+            }
+       
+
+            public void exibirUsers() {
+                String sql = "SELECT * FROM tb_users";
+                try {  
+                    dbconn = conexaoMySQL.createConnectionToMySQL();
+                    pstm = (PreparedStatement) dbconn.prepareStatement(sql);
+                  
+                    ResultSet rs = pstm.executeQuery();
+                    
+                    while (rs.next()) {
+                        cadUser usuario = new cadUser();
+                        usuario.setMatricula(rs.getObject("use_matricula", BigInteger.class)); 
+
+                        usuario.setNome(rs.getString("use_nome"));
+                        usuario.setStatus(rs.getString("use_status"));
+        
+                        
+                        System.out.println("| Matricula: " + usuario.getMatricula() + " | Nome: " + usuario.getNome() + " | Status: " + usuario.getStatus() + " |");
+                    }
+        
+                } catch (Exception error) {
+                    
+                    error.printStackTrace();
+                }
             }
     
         }

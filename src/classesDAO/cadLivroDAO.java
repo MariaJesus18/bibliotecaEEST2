@@ -6,6 +6,7 @@ import cadastros.cadLivro;
 import descartados.livDescartado;
 import updates.upLivro;
 import database.conexaoMySQL;
+import java.math.BigInteger;
 
 public class cadLivroDAO {
     Connection dbconn = null; // variavel de conexao
@@ -158,31 +159,30 @@ public class cadLivroDAO {
         }
     }
 
-    
-    public void exibirDados2() {
-        String sql ="select liv_isbn,liv_autor,liv_titulo,liv_status,cat_categoria as categoria from tb_livros join  tb_categorias on liv_cat_id = cat_id where liv_isbn = ?";
-
-        try {
-
-            
-            dbconn = conexaoMySQL.createConnectionToMySQL(); // reestabelece a conexao com o banco
-            // vai inserir os dados no bd na ordem q esta aqui
+    public void exibirLivros() {
+        String sql = "SELECT * FROM tb_livros";
+        try {  
+            dbconn = conexaoMySQL.createConnectionToMySQL();
             pstm = (PreparedStatement) dbconn.prepareStatement(sql);
-           
           
-        } catch (Exception error) {
-            error.printStackTrace();
-        } finally {
-            try {
-                if (pstm != null) {
-                    pstm.close();
-                }
-                if (dbconn != null) {
-                    dbconn.close();
-                }
-            } catch (Exception error) {
-                error.printStackTrace();
+            ResultSet rs = pstm.executeQuery();
+            
+            while (rs.next()) {
+                cadLivro livro = new cadLivro();
+                livro.setIsbn(rs.getObject("liv_isbn", BigInteger.class)); 
+
+                livro.setAutor(rs.getString("liv_autor"));
+                livro.setStatus(rs.getString("liv_status"));
+                livro.setTitulo(rs.getString("liv_titulo"));
+                livro.setIdCategoria(rs.getInt("liv_cat_id"));
+
+                
+                System.out.println("| Titulo:" + livro.getTitulo() + " | Autor: " + livro.getAutor() + " | Isbn: " + livro.getIsbn() + " | categoria:"+ livro.getIdCategoria() + " | Status:" + livro.getStatus() +" |");
             }
+
+        } catch (Exception error) {
+            
+            error.printStackTrace();
         }
     }
 
