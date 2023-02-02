@@ -177,7 +177,7 @@ public class cadLivroDAO {
                 livro.setIdCategoria(rs.getInt("liv_cat_id"));
 
                 
-                System.out.println("| Titulo:" + livro.getTitulo() + " | Autor: " + livro.getAutor() + " | Isbn: " + livro.getIsbn() + " | categoria:"+ livro.getIdCategoria() + " | Status:" + livro.getStatus() +" |");
+                System.out.println("| \u001b[32;1mTitulo:\u001b[m" + livro.getTitulo() + " | \u001b[32;1mAutor:\u001b[m " + livro.getAutor() + " | \u001b[32;1mIsbn:\u001b[m " + livro.getIsbn() + " | \u001b[32;1mcategoria:\u001b[m"+ livro.getIdCategoria() + " | \u001b[32;1mStatus:\u001b[m" + livro.getStatus() +" |");
             }
 
         } catch (Exception error) {

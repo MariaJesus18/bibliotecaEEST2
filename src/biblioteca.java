@@ -36,7 +36,7 @@ public class biblioteca {
     cadDevDAO devolucaoDAO = new cadDevDAO();
     cadCategoriaDAO categoriaDAO = new cadCategoriaDAO();
 
-    System.out.println("Qual ação voce deseja realizar? ");
+    System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
     System.out.println("1- Cadastrar Usuario");
     System.out.println("2- Cadastrar Livro");
     System.out.println("3- Cadastrar Emprestimo");
@@ -49,7 +49,7 @@ public class biblioteca {
     System.out.println("10- Listar usuarios");
     System.out.println("11- Listar Livros");
     System.out.println("12- Listar categorias");
-    System.out.println("13- Sair do menu");
+    System.out.println("13- Sair do menu\u001b[m");
     int aux = sc.nextInt();
 
     if (aux == 1) {
@@ -176,20 +176,14 @@ public class biblioteca {
       livroup.setTitulo(tituloup);
       livroup.setIdCategoria(categoriaup);
       livroDAO.upLivro(livroup); // salva as informacoes no banco
-    }else if (aux == 10) {
+    } else if (aux == 10) {
       userDAO.exibirUsers();
     } else if (aux == 11) {
       livroDAO.exibirLivros();
     } else if (aux == 12) {
       categoriaDAO.exibirCategorias();
     } else if (aux == 13) {
-      System.out.println("Sistema encerrado");
-    } 
+      System.out.println("\u001b[31;1mSistema encerrado\u001b[m");
+    }
   }
 }
-
-// private String getOriginalTaskId(final String taskId) {
-// String sql = String.format("SELECT original_task_id FROM %s WHERE task_id =
-// '%s' and state='%s' LIMIT 1", TABLE_JOB_STATUS_TRACE_LOG, taskId,
-// State.TASK_STAGING);
-// String result = "";

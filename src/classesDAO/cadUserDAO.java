@@ -127,7 +127,7 @@ Connection dbconn = null; // variavel de conexao
                         usuario.setStatus(rs.getString("use_status"));
         
                         
-                        System.out.println("| Matricula: " + usuario.getMatricula() + " | Nome: " + usuario.getNome() + " | Status: " + usuario.getStatus() + " |");
+                        System.out.println("| \u001b[32;1mMatricula:\u001b[m " + usuario.getMatricula() + " |  \u001b[32;1mNome:\u001b[m " + usuario.getNome() + " | \u001b[32;1mStatus:\u001b[m " + usuario.getStatus() + " |");
                     }
         
                 } catch (Exception error) {

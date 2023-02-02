@@ -55,7 +55,7 @@ public class cadCategoriaDAO {
                 categorias.setCategoria(rs.getString("cat_categoria")); 
 
                 
-                System.out.println("| Categoria: " + categorias.getCategoria()  +" |");
+                System.out.println("| \u001b[32;1mCategoria:\u001b[m " + categorias.getCategoria()  +" |");
             }
 
         } catch (Exception error) {
