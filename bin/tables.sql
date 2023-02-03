@@ -5,7 +5,7 @@ use bibliotecaEEST;
 create table if not exists tb_livros (
     liv_isbn bigInt(13) primary key,
     liv_titulo varchar(50),
-    liv_autor varchar(50),
+    liv_autor varchar(50), 
     liv_status varchar(15));
 
 create table if not exists tb_users (
