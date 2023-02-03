@@ -49,11 +49,11 @@ begin
     end if;
 
   if exists(select use_matricula from tb_users where use_matricula = NEW.emp_use_matricula and use_status = 'Inativo') then
-    signal sqlstate '45000' set message_text = 'O user nn existe';
+    signal sqlstate '45000' set message_text = 'O user não existe';
     end if;
 
     if exists(select liv_isbn from tb_livros where liv_isbn = NEW.emp_liv_isbn and liv_status = 'Descartado') then
-    signal sqlstate '45000' set message_text = 'O livro nn existe';
+    signal sqlstate '45000' set message_text = 'O livro não existe';
     end if;
 
 end //
@@ -76,25 +76,3 @@ delimiter ;
 insert into tb_users(use_matricula,use_nome) values (20201101110035, "Maria de jesus");
 insert into tb_categorias(cat_categoria) values ( "Romance");
 insert into tb_livros(liv_isbn,liv_titulo,liv_autor,liv_status,liv_cat_id) values (123,"eh a vida", "Kauan","Disponivel",1);
--- insert into tb_emprestimos(emp_liv_isbn,emp_use_matricula) values(123,20201101110035);
-
-
-
-
-  
-
--- create function fn_media(nota1 float, nota2 float, nota3 float, nota4 float) returns float 
--- return ((nota1 + nota2 + nota3 + nota4)/4);
-
--- delimiter //
--- create trigger tr_adcNotas before insert on tb_notas for each row
--- begin
--- 	if not exists(select * from tb_matriculas where mat_id = new.not_mat_id and mat_situacao like 'Matriculado') then 
--- 		signal sqlstate '45000' set message_text = 'Aluno inexistente';
--- 	end if;
-    
--- 	if (fn_media(new.not_nota1, new.not_nota2, new.not_nota3, new.not_nota4) >= 6 and (select concat(new.not_nota1, new.not_nota2, new.not_nota3, new.not_nota4))) then
--- 		update tb_matriculas set mat_situacao = 'Aprovado' where mat_id = new.not_mat_id;
--- 	elseif (fn_media(new.not_nota1, new.not_nota2, new.not_nota3, new.not_nota4) < 6 and exists(select concat(new.not_nota1, new.not_nota2, new.not_nota3, new.not_nota4))) then
--- 		update tb_matriculas set mat_situacao = 'Reprovado' where mat_id = new.not_mat_id;
--- 	end if;

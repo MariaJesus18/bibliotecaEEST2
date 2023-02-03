@@ -142,9 +142,13 @@ public class cadLivroDAO {
             pstm.setObject(3, livroup.getIdCategoria());
             pstm.setObject(4, livroup.getOldisbn());
             pstm.executeUpdate();
-            int countupUser = pstm.getUpdateCount();
+            int countupLiv = pstm.getUpdateCount();
 
-            System.out.print(countupUser);
+            if (countupLiv == 0) {
+                System.out.println(" O livro não existe!!");
+            } else {
+                System.out.println("livro editado ");
+            }
         } catch (Exception error) {
             error.printStackTrace();
         } finally {

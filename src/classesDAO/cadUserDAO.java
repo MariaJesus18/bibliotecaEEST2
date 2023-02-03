@@ -91,7 +91,7 @@ public class cadUserDAO {
             pstm.executeUpdate();
             int countupUser = pstm.getUpdateCount();
 
-            System.out.print(countupUser);
+            System.out.print("Usuario editado");
         } catch (Exception error) {
             error.printStackTrace();
         } finally {
@@ -121,8 +121,8 @@ public class cadUserDAO {
 
             while (rs.next()) {
                 cadUser usuario = new cadUser();
+                
                 usuario.setMatricula(rs.getObject("use_matricula", BigInteger.class));
-
                 usuario.setNome(rs.getString("use_nome"));
                 usuario.setStatus(rs.getString("use_status"));
 
@@ -130,6 +130,7 @@ public class cadUserDAO {
                         "| \u001b[32;1mMatricula:\u001b[m " + usuario.getMatricula() + " |  \u001b[32;1mNome:\u001b[m "
                                 + usuario.getNome() + " | \u001b[32;1mStatus:\u001b[m " + usuario.getStatus() + " |");
             }
+            
 
         } catch (Exception error) {
 
