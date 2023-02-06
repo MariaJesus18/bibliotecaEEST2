@@ -117,9 +117,12 @@ public class biblioteca {
             emprestimo.setMatriculaAl(matriculaAl);
             emprestimo.setIsbn(isbn);
             boolean salvaEmprestimo = emprestimoDAO.save(emprestimo);
+            // verifica se os dados digitados estão corretos
             if (salvaEmprestimo) {
               livroDAO.livIndisponivel(livro, emprestimo);
               emprestimo.exibirDados();
+            } else {
+              System.out.print("Não foi possivel fazer esse emprestimo, verifique a matricula e o isbn digitados");
             }
 
         }
@@ -139,9 +142,16 @@ public class biblioteca {
             devolucao.setMatriculaAl(matriculaAl);
             devolucao.setIsbn(isbn);
             devolucaoDAO.save(devolucao); // salva as informacoes no banco
-            livroDAO.livDisponivel(livro, devolucao);
-            devolucao.exibirDados();
 
+            boolean salvaEmprestimo = emprestimoDAO.save(emprestimo);
+            
+            // verifica se os dados digitados estão corretos
+            if (salvaEmprestimo) {
+              livroDAO.livDisponivel(livro, devolucao);
+            devolucao.exibirDados();
+            } else {
+              System.out.print("Não foi possivel fazer essa devolução, verifique a matricula, o id do emprestimo ou isbn digitados");
+            }
         }
 
     } 

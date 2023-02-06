@@ -7,7 +7,7 @@ import database.conexaoMySQL;
 
 public class cadDevDAO {
 
-    public void save(cadDev devolucao) { // funcao que salva os dados no banco
+    public boolean save(cadDev devolucao) { // funcao que salva os dados no banco
 
         // insercao dos dados no bd
         String sql = " insert into tb_devolucoes (dev_use_matricula,dev_liv_isbn, dev_emp_id) values (?,?,?)";
@@ -28,7 +28,7 @@ public class cadDevDAO {
             // banco em Java
             pstm.execute();
         } catch (Exception error) {
-            error.printStackTrace();
+            return false;
         } finally {
             try {
                 if (pstm != null) {
@@ -42,5 +42,6 @@ public class cadDevDAO {
                 error.printStackTrace();
             }
         }
+        return true;
     }
 }

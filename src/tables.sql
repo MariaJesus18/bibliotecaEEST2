@@ -38,20 +38,19 @@ create table if not exists tb_devolucoes (
     foreign key(dev_emp_id) references tb_emprestimos(emp_id),
     foreign key(dev_use_matricula) references tb_users(use_matricula));
 
-
 drop trigger if exists `bibliotecaeest`.`tb_emprestimos_BEFORE_INSERT`;
 delimiter //
 CREATE DEFINER = CURRENT_USER TRIGGER  `bibliotecaeest`.`tb_emprestimos_BEFORE_INSERT` BEFORE INSERT ON `tb_emprestimos` FOR EACH ROW
 begin 
-
+-- verifica se o livro está disponivel para emprestimos
   if exists(select liv_status from tb_livros, tb_emprestimos where emp_liv_isbn = liv_isbn and emp_liv_isbn = new.emp_liv_isbn and liv_status in ('Indisponivel', 'Descartado')) then
     signal sqlstate '45000' set message_text = 'O livro ta indisponivel para emprestimos';
     end if;
-
+-- verifica se o usuario que esta sendo cadastrado no emprestimo existe
   if exists(select use_matricula from tb_users where use_matricula = NEW.emp_use_matricula and use_status = 'Inativo') then
     signal sqlstate '45000' set message_text = 'O user não existe';
     end if;
-
+-- verifica se o livro existe
     if exists(select liv_isbn from tb_livros where liv_isbn = NEW.emp_liv_isbn and liv_status = 'Descartado') then
     signal sqlstate '45000' set message_text = 'O livro não existe';
     end if;
@@ -64,7 +63,7 @@ drop trigger if exists`bibliotecaeest`.`tb_devolucoes_BEFORE_INSERT`;
 delimiter //
 CREATE DEFINER = CURRENT_USER TRIGGER `bibliotecaeest`.`tb_devolucoes_BEFORE_INSERT` BEFORE INSERT ON `tb_devolucoes` FOR EACH ROW
 begin 
-
+-- verifica se o livro da devolucao esta  emprestado
   if ((select liv_status from tb_livros, tb_devolucoes where dev_liv_isbn = liv_isbn and dev_liv_isbn = new.dev_liv_isbn) = 'Disponivel') then
     signal sqlstate '45000' set message_text = 'O livro não tá emprestado';
   end if;

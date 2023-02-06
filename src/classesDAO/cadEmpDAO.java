@@ -26,7 +26,6 @@ public class cadEmpDAO {
             pstm.execute();
         } catch (Exception error) {
             // error.printStackTrace();
-            System.out.println(error.getMessage());
             return false;
         } finally {
             try {

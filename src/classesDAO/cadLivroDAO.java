@@ -108,6 +108,7 @@ public class cadLivroDAO {
             pstm.execute();
             int countDelLiv = pstm.getUpdateCount();
 
+            // verifica se o livro  existe
             if (countDelLiv == 0) {
                 System.out.println(" O livro não existe!!");
             } else {
@@ -144,6 +145,7 @@ public class cadLivroDAO {
             pstm.executeUpdate();
             int countupLiv = pstm.getUpdateCount();
 
+            // verifica se o livro que esta sendo editado existe
             if (countupLiv == 0) {
                 System.out.println(" O livro não existe!!");
             } else {

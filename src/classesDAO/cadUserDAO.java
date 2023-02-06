@@ -91,7 +91,11 @@ public class cadUserDAO {
             pstm.executeUpdate();
             int countupUser = pstm.getUpdateCount();
 
-            System.out.print("Usuario editado");
+            if (countupUser == 0) {
+                System.out.println(" O usuario não existe!!");
+            } else {
+                System.out.println("livro editado ");
+            }
         } catch (Exception error) {
             error.printStackTrace();
         } finally {
@@ -130,7 +134,6 @@ public class cadUserDAO {
                         "| \u001b[32;1mMatricula:\u001b[m " + usuario.getMatricula() + " |  \u001b[32;1mNome:\u001b[m "
                                 + usuario.getNome() + " | \u001b[32;1mStatus:\u001b[m " + usuario.getStatus() + " |");
             }
-            
 
         } catch (Exception error) {
 
