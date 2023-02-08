@@ -1,4 +1,5 @@
 package cadastros;
+
 import java.math.BigInteger;
 
 public class cadUser {
@@ -10,26 +11,25 @@ public class cadUser {
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
+
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public BigInteger getMatricula() {
         return matricula;
     }
+
     public void setMatricula(BigInteger matricula) {
         this.matricula = matricula;
     }
-
-
-    
-
-
-
 
 }

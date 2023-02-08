@@ -27,7 +27,7 @@ public class cadUserDAO {
             pstm.setObject(1, user.getMatricula());
             pstm.setString(2, user.getNome());
             pstm.executeUpdate();
-           
+
         } catch (Exception error) {
             error.printStackTrace();
         } finally {
@@ -125,7 +125,7 @@ public class cadUserDAO {
 
             while (rs.next()) {
                 cadUser usuario = new cadUser();
-                
+
                 usuario.setMatricula(rs.getObject("use_matricula", BigInteger.class));
                 usuario.setNome(rs.getString("use_nome"));
                 usuario.setStatus(rs.getString("use_status"));

@@ -99,146 +99,154 @@ public class biblioteca {
         categoriaDAO.exibirCategorias();
 
       }
-    } 
-    else if (aux1 == 2) {
-        System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
-        System.out.println("1- Cadastrar Emprestimo");
-        System.out.println("2- Cadastrar Devolucao\u001b[m");
-        int aux = sc.nextInt();
+    } else if (aux1 == 2) {
+      System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
+      System.out.println("1- Cadastrar Emprestimo");
+      System.out.println("2- Cadastrar Devolucao\u001b[m");
+      int aux = sc.nextInt();
 
-        if (aux == 1) {
-            System.out.println("Digite a matricula do Aluno");
-            BigInteger matriculaAl = sc.nextBigInteger();
-            sc.nextLine();
+      if (aux == 1) {
+        System.out.println("\n Livros existentes");
+        livroDAO.exibirLivros();
+        System.out.println("\n Usuarios existentes");
+        userDAO.exibirUsers();
+        System.out.println("\n Digite a matricula do Aluno");
+        BigInteger matriculaAl = sc.nextBigInteger();
+        sc.nextLine();
 
-            System.out.println("Digite o numero de serie do livro");
-            BigInteger isbn = sc.nextBigInteger();
+        System.out.println("Digite o numero de serie do livro");
+        BigInteger isbn = sc.nextBigInteger();
 
-            emprestimo.setMatriculaAl(matriculaAl);
-            emprestimo.setIsbn(isbn);
-            boolean salvaEmprestimo = emprestimoDAO.save(emprestimo);
-            // verifica se os dados digitados estão corretos
-            if (salvaEmprestimo) {
-              livroDAO.livIndisponivel(livro, emprestimo);
-              emprestimo.exibirDados();
-            } else {
-              System.out.print("Não foi possivel fazer esse emprestimo, verifique a matricula e o isbn digitados");
-            }
+        emprestimo.setMatriculaAl(matriculaAl);
+        emprestimo.setIsbn(isbn);
+        boolean salvaEmprestimo = emprestimoDAO.save(emprestimo);
 
-        }
-        else if (aux == 2) {
-
-            System.out.println("Digite a matricula do Aluno");
-            BigInteger matriculaAl = sc.nextBigInteger();
-            sc.nextLine();
-
-            System.out.println("Digite o id do emprestimo");
-            int id = sc.nextInt();
-
-            System.out.println("Digite o numero de serie do livro");
-            BigInteger isbn = sc.nextBigInteger();
-
-            devolucao.setIdEmp(id);
-            devolucao.setMatriculaAl(matriculaAl);
-            devolucao.setIsbn(isbn);
-            devolucaoDAO.save(devolucao); // salva as informacoes no banco
-
-            boolean salvaEmprestimo = emprestimoDAO.save(emprestimo);
-            
-            // verifica se os dados digitados estão corretos
-            if (salvaEmprestimo) {
-              livroDAO.livDisponivel(livro, devolucao);
-            devolucao.exibirDados();
-            } else {
-              System.out.print("Não foi possivel fazer essa devolução, verifique a matricula, o id do emprestimo ou isbn digitados");
-            }
+        // verifica se os dados digitados estão corretos
+        if (salvaEmprestimo) {
+          livroDAO.livIndisponivel(livro, emprestimo);
+          emprestimo.exibirDados();
+        } else {
+          System.out.print("Não foi possivel fazer esse emprestimo, verifique a matricula e o isbn digitados");
         }
 
-    } 
-    else if (aux1 == 3) {
-          System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
-          System.out.println("1- deletar livro");
-          System.out.println("2- deletar Usuario\u001b[m");
-          int aux = sc.nextInt();
+      } else if (aux == 2) {
 
-          if (aux == 1) {
+        System.out.println("\n Livros existentes");
+        livroDAO.exibirLivros();
+        System.out.println("\n Usuarios existentes");
+        userDAO.exibirUsers();
+        System.out.println("\n Todos os emprestimos");
+        emprestimoDAO.exibirEmp();
 
-            System.out.println("Digite o isbn do livro que deseja deletar");
-            int livDeletado = sc.nextInt();
+        System.out.println("\n Digite a matricula do Aluno");
+        BigInteger matriculaAl = sc.nextBigInteger();
+        sc.nextLine();
 
-            livroDescartado.setLivDescartado(livDeletado);
-            livroDAO.livDescartado(livro, livroDescartado);
+        System.out.println("Digite o id do emprestimo");
+        int id = sc.nextInt();
 
-          } else if (aux == 2) {
+        System.out.println("Digite o numero de serie do livro");
+        BigInteger isbn = sc.nextBigInteger();
 
-            System.out.println("Digite a matricula do aluno que deseja deletar");
-            BigInteger userDeletado = sc.nextBigInteger();
+        devolucao.setIdEmp(id);
+        devolucao.setMatriculaAl(matriculaAl);
+        devolucao.setIsbn(isbn);
+        boolean salvaDevolucao = devolucaoDAO.save(devolucao);
+        // verifica se os dados digitados estão corretos
+        if (salvaDevolucao == true) {
+          livroDAO.livDisponivel(livro, devolucao);
+          devolucao.exibirDados();
+        } else {
+          System.out.print(
+              "Não foi possivel fazer essa devolução, verifique a matricula, o id do emprestimo ou isbn digitados");
+        }
+      }
 
-            userDescartado.setUserDescartado(userDeletado);
-            userDAO.userDeletado(userDescartado);
+    } else if (aux1 == 3) {
+      System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
+      System.out.println("1- deletar livro");
+      System.out.println("2- deletar Usuario\u001b[m");
+      int aux = sc.nextInt();
 
-          }
-    } 
-    else if (aux1 == 4) {
-          System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
-          System.out.println("1- Editar usuario");
-          System.out.println("2-Editar Livro\u001b[m");
-          int aux = sc.nextInt();
+      if (aux == 1) {
+        System.out.println("\n Livros existentes");
+        livroDAO.exibirLivros();
+        System.out.println("\n Digite o isbn do livro que deseja deletar");
+        int livDeletado = sc.nextInt();
 
-          if (aux == 1) {
+        livroDescartado.setLivDescartado(livDeletado);
+        livroDAO.livDescartado(livro, livroDescartado);
 
-            System.out.println("Digite a matricula do aluno que deseja editar");
-            BigInteger matriculaold = sc.nextBigInteger();
-            sc.nextLine();
+      } else if (aux == 2) {
+        System.out.println("\n Usuarios existentes");
+        userDAO.exibirUsers();
+        System.out.println("\n Digite a matricula do aluno que deseja deletar");
+        BigInteger userDeletado = sc.nextBigInteger();
 
-            System.out.println("Digite o novo nome do Usuario");
-            String nomeup = sc.nextLine();
+        userDescartado.setUserDescartado(userDeletado);
+        userDAO.userDeletado(userDescartado);
 
-            userup.setOldMat(matriculaold);
-            userup.setNome(nomeup);
-            userDAO.upUser(userup); // salva as informacoes no banco
-          } else if (aux == 2) {
+      }
+    } else if (aux1 == 4) {
+      System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
+      System.out.println("1- Editar usuario");
+      System.out.println("2-Editar Livro\u001b[m");
+      int aux = sc.nextInt();
 
-            System.out.println("Digite o isbn do livro q deseja editar");
-            BigInteger isbnold = sc.nextBigInteger();
-            sc.nextLine();
+      if (aux == 1) {
+        System.out.println("\n Usuarios existentes");
+        userDAO.exibirUsers();
+        System.out.println("\n Digite a matricula do aluno que deseja editar");
+        BigInteger matriculaold = sc.nextBigInteger();
+        sc.nextLine();
 
-            System.out.println("Digite o novo titulo do livro");
-            String tituloup = sc.nextLine();
+        System.out.println("Digite o novo nome do Usuario");
+        String nomeup = sc.nextLine();
 
-            System.out.println("Digite a nova categoria do livro");
-            int categoriaup = sc.nextInt();
+        userup.setOldMat(matriculaold);
+        userup.setNome(nomeup);
+        userDAO.upUser(userup); // salva as informacoes no banco
+      } else if (aux == 2) {
+        System.out.println("\n Livros existentes");
+        livroDAO.exibirLivros();
+        System.out.println("\n Digite o isbn do livro q deseja editar");
+        BigInteger isbnold = sc.nextBigInteger();
+        sc.nextLine();
 
-            livroup.setOldisbn(isbnold);
-            livroup.setTitulo(tituloup);
-            livroup.setIdCategoria(categoriaup);
-            livroDAO.upLivro(livroup); // salva as informacoes no banco
-          }
-    } 
-    else if (aux1 == 5) {
-          System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
-          System.out.println("1- Listar usuarios");
-          System.out.println("2- Listar Livros");
-          System.out.println("3- Listar categorias");
-          System.out.println("4- Listar emprestimos");
-          System.out.println("5- Listar devolucoes\u001b[m");
-          int aux = sc.nextInt();
+        System.out.println("Digite o novo titulo do livro");
+        String tituloup = sc.nextLine();
 
-          if (aux == 1) {
-            userDAO.exibirUsers();
-          } else if (aux == 2) {
-            livroDAO.exibirLivros();
-          } else if (aux == 3) {
-            categoriaDAO.exibirCategorias();
-          } else if (aux == 4) {
-            emprestimoDAO.exibirEmp();
-          }else if (aux == 5) {
-            devolucaoDAO.exibirDev();
-          }
+        System.out.println("Digite a nova categoria do livro");
+        int categoriaup = sc.nextInt();
+
+        livroup.setOldisbn(isbnold);
+        livroup.setTitulo(tituloup);
+        livroup.setIdCategoria(categoriaup);
+        livroDAO.upLivro(livroup); // salva as informacoes no banco
+      }
+    } else if (aux1 == 5) {
+      System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
+      System.out.println("1- Listar usuarios");
+      System.out.println("2- Listar Livros");
+      System.out.println("3- Listar categorias");
+      System.out.println("4- Listar emprestimos");
+      System.out.println("5- Listar devolucoes\u001b[m");
+      int aux = sc.nextInt();
+
+      if (aux == 1) {
+        userDAO.exibirUsers();
+      } else if (aux == 2) {
+        livroDAO.exibirLivros();
+      } else if (aux == 3) {
+        categoriaDAO.exibirCategorias();
+      } else if (aux == 4) {
+        emprestimoDAO.exibirEmp();
+      } else if (aux == 5) {
+        devolucaoDAO.exibirDev();
+      }
     }
 
     else if (aux1 == 6) {
-
       System.out.println("\u001b[31;1mSistema encerrado\u001b[m");
     }
   }

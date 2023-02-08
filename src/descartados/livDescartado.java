@@ -11,5 +11,4 @@ public class livDescartado {
         this.livDescartado = livDescartado;
     }
 
-
 }

@@ -1,4 +1,5 @@
 package cadastros;
+
 public class cadCategorias {
 
     private String categoria;
