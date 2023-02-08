@@ -36,7 +36,7 @@ public class biblioteca {
     cadDevDAO devolucaoDAO = new cadDevDAO();
     cadCategoriaDAO categoriaDAO = new cadCategoriaDAO();
 
-    System.out.println("1- Gerenciar Cadastros");
+    System.out.println("\u001b[32;1m1- Gerenciar Cadastros");
     System.out.println("2- Gerenciar Emprestimos");
     System.out.println("3- Deletar");
     System.out.println("4- Editar");
@@ -219,7 +219,9 @@ public class biblioteca {
           System.out.println("\u001b[32;1mQual ação voce deseja realizar?");
           System.out.println("1- Listar usuarios");
           System.out.println("2- Listar Livros");
-          System.out.println("3- Listar categorias\u001b[m");
+          System.out.println("3- Listar categorias");
+          System.out.println("4- Listar emprestimos");
+          System.out.println("5- Listar devolucoes\u001b[m");
           int aux = sc.nextInt();
 
           if (aux == 1) {
@@ -228,6 +230,10 @@ public class biblioteca {
             livroDAO.exibirLivros();
           } else if (aux == 3) {
             categoriaDAO.exibirCategorias();
+          } else if (aux == 4) {
+            emprestimoDAO.exibirEmp();
+          }else if (aux == 5) {
+            devolucaoDAO.exibirDev();
           }
     }
 
