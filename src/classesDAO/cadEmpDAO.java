@@ -56,11 +56,12 @@ public class cadEmpDAO {
 
                 emprestimo.setIsbn(rs.getObject("emp_liv_isbn", BigInteger.class));
                 emprestimo.setMatriculaAl(rs.getObject("emp_use_matricula", BigInteger.class));
+                int idemp = (rs.getInt("emp_id"));
 
                 System.out.println(
                         "| \u001b[32;1mAluno:\u001b[m " + emprestimo.getMatriculaAl()
                                 + " |  \u001b[32;1mLivro:\u001b[m "
-                                + emprestimo.getIsbn() + " |");
+                                + emprestimo.getIsbn() + " | id: " + idemp + " |");
             }
 
         } catch (Exception error) {
